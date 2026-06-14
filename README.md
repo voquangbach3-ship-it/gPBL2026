@@ -6,7 +6,7 @@
 ![Platform](https://img.shields.io/badge/Platform-Arduino_%7C_Raspberry_Pi-red)
 
 ## 💡 Tổng Quan Dự Án
-Được phát triển trong khuôn khổ chương trình hợp tác quốc tế **gPBL2026-NetSoft**, dự án này giới thiệu một hệ thống bảo mật IoT đa lớp. Hệ thống thay thế chìa khóa truyền thống bằng ổ khóa xác thực dựa trên nhịp gõ cửa (Rhythm lock), kết hợp với khả năng giám sát và điều khiển từ xa thông qua Telegram.
+Dự án này giới thiệu hệ thống bảo mật IoT đa lớp. Hệ thống thay thế chìa khóa truyền thống bằng ổ khóa xác thực dựa trên nhịp gõ cửa (Rhythm lock), kết hợp với khả năng giám sát và điều khiển từ xa thông qua Telegram.
 
 **Nhóm 10:** **Võ Quang Bách**, Ema Nakagawa, Shingo Hirachi, Châu Quốc Tuấn, Nguyễn Lê Anh Tài.
 
