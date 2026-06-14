@@ -13,23 +13,20 @@
 #define BUZZER_PIN  10
 #define BUTTON_PIN  12
 
-// ---------------- キット用・センサー設定 ----------------
-// ★修正箇所：ブザーのHIGH/LOWを反転させました（LOWで鳴るタイプに対応）
-#define BUZZER_ON  LOW   // ブザーが鳴る信号
-#define BUZZER_OFF HIGH  // ブザーが止まる信号
-#define VIB_TRIGGER HIGH  // 振動センサーが反応した時の信号
+#define BUZZER_ON  LOW
+#define BUZZER_OFF HIGH
+#define VIB_TRIGGER HIGH
 
 const int TOTAL_STAGES = 4;
-const unsigned long VIBE_DEBOUNCE = 600;  // 連続タップ防止(ms)
-const unsigned long TIMEOUT_MS = 30000;   // 30秒放置でリセット
-const unsigned long LONG_PRESS_MS = 3000; // セットアップ長押し(ms)
+const unsigned long VIBE_DEBOUNCE = 600;
+const unsigned long TIMEOUT_MS = 30000;
+const unsigned long LONG_PRESS_MS = 3000;
 
 // EEPROM Settings
 const int EEPROM_ADDR = 0;
 const int CONFIG_ADDR = 100;
 const byte CONFIG_SET_VAL = 88;
 
-// Default Password (初期パスワード: 1-1-1-1)
 const int DEFAULT_PASSWORD[TOTAL_STAGES] = {1, 1, 1, 1};
 
 // ---------------- State Management ----------------
@@ -39,7 +36,7 @@ enum SystemState {
     LISTENING_KNOCKS,
     SETUP_MODE,
     WAIT_RESET,
-    LOCKOUT      // ペナルティによるロック状態
+    LOCKOUT
 };
 
 SystemState currentState = WAIT_MOTION;
@@ -60,10 +57,9 @@ unsigned long lastActionTime = 0;
 const int stageLEDs[] = {LED1, LED2, LED3, LED4};
 bool stageResult[TOTAL_STAGES];
 
-// ペナルティ用変数
-int failCount = 0;                  // 失敗回数
-unsigned long currentPenaltyMs = 0; // 現在適用されているロック時間
-unsigned long penaltyStartTime = 0; // ロック開始時刻
+int failCount = 0;
+unsigned long currentPenaltyMs = 0;
+unsigned long penaltyStartTime = 0;
 
 // ---------------- Function Declarations ----------------
 void loadPassword();
@@ -90,7 +86,6 @@ void setup() {
     pinMode(VIB_PIN, INPUT_PULLUP);
     pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-    // ★修正箇所：pinModeの前に初期状態（OFF）を書き込むことで、起動時のノイズを防ぎます
     pinMode(BUZZER_PIN, OUTPUT);
     digitalWrite(BUZZER_PIN, BUZZER_OFF); 
     
@@ -124,7 +119,6 @@ void loop() {
     unsigned long currentMillis = millis();
     bool buttonRead = digitalRead(BUTTON_PIN);
 
-    // タイムアウト処理（LOCKOUT中はタイムアウトさせない）
     if (currentState != WAIT_MOTION && 
         currentState != WAIT_RESET && 
         currentState != LOCKOUT && 
@@ -134,7 +128,6 @@ void loop() {
     }
 
     switch (currentState) {
-        // --- 1. 人感センサー待ち ---
         case WAIT_MOTION:
             if (digitalRead(PIR_PIN) == HIGH) {
                 // Serial.println("\n[DEBUG] -> PIR Motion Detected!");
@@ -146,7 +139,6 @@ void loop() {
             }
             break;
 
-        // --- 2. タッチセンサー待ち ---
         case WAIT_TOUCH:
             if (digitalRead(TOUCH_PIN) == HIGH) {
                 Serial.println("Taking a photo");
@@ -159,11 +151,9 @@ void loop() {
             }
             break;
 
-        // --- 3. ノック入力 ＆ セットアップモード ---
         case LISTENING_KNOCKS:
         case SETUP_MODE:
             
-            // 【変更追加箇所】現在の入力ステージのLEDを点滅させる
             if (currentStage < TOTAL_STAGES) {
                 if ((currentMillis / 200) % 2 == 0) {
                     digitalWrite(stageLEDs[currentStage], HIGH);
@@ -191,7 +181,6 @@ void loop() {
             if (buttonRead == LOW && lastButtonState == HIGH) {
                 // Serial.println("\n[DEBUG] Button Pressed! (Confirming Input)");
                 
-                // 【変更追加箇所】確定したステージのLEDを確実に点灯状態にする
                 if (currentStage < TOTAL_STAGES) {
                     digitalWrite(stageLEDs[currentStage], HIGH);
                 }
@@ -245,7 +234,6 @@ void loop() {
             }
             break;
 
-        // --- 4. マニュアルリセット待ち ---
         case WAIT_RESET:
             if (buttonRead == LOW && lastButtonState == HIGH) {
                 // Serial.println("[DEBUG] Reset button pressed. Restarting sequence.");
@@ -254,14 +242,11 @@ void loop() {
             }
             break;
 
-        // --- 5. ペナルティによるロック状態 ---
         case LOCKOUT:
-            // ロック時間が経過したかチェック
             if (currentMillis - penaltyStartTime > currentPenaltyMs) {
                 // Serial.println("\n[DEBUG] Penalty time finished. System unlocked.");
                 resetToPhase1();
             } else {
-                // ロック中はLEDを激しく点滅させて警告する
                 if ((currentMillis / 100) % 2 == 0) {
                     for(int i=0; i<TOTAL_STAGES; i++) digitalWrite(stageLEDs[i], HIGH);
                 } else {
@@ -289,13 +274,11 @@ void checkKnockStage() {
     currentStage++;
     knockCount = 0;
 
-    // まだ全ステージ終わっていない場合
     if (currentStage < 4) {
         playSuccessBeep();
         return;
     }
 
-    // --- 全ステージ入力完了後の判定 ---
     bool allCorrect = true;
     for (int i = 0; i < TOTAL_STAGES; i++) {
         if (!stageResult[i]) allCorrect = false;
@@ -313,16 +296,13 @@ void checkKnockStage() {
         bool lastBtn = HIGH;
         bool enterSetup = false;
 
-        // 5秒間の受付タイム
         while (millis() - windowStart < 5000) {
             bool currentBtn = digitalRead(BUTTON_PIN);
             
-            // ボタンが押された瞬間（HIGHからLOWへの変化）を検知
             if (currentBtn == LOW && lastBtn == HIGH) {
                 tapCount++;
                 // Serial.print("[DEBUG] Setup Tap: "); // Serial.println(tapCount);
                 
-                // タップごとに音を出してフィードバック
                 digitalWrite(BUZZER_PIN, BUZZER_ON);
                 delay(50);
                 digitalWrite(BUZZER_PIN, BUZZER_OFF);
@@ -331,11 +311,10 @@ void checkKnockStage() {
                     enterSetup = true;
                     break;
                 }
-                delay(150); // 連続タップのチャタリング防止
+                delay(150);
             }
             lastBtn = currentBtn;
             
-            // 待機中、人感LEDをゆっくり点滅させて「受付中」を示す
             digitalWrite(PIR_LED, (millis() / 250) % 2); 
         }
 
@@ -348,7 +327,7 @@ void checkKnockStage() {
             knockCount = 0;
             isConfirming = false;
             lastActionTime = millis();
-            flashLEDs(5, 50); // 激しく点滅して開始合図
+            flashLEDs(5, 50);
         } else {
             digitalWrite(BUZZER_PIN, BUZZER_ON);
             delay(50);
