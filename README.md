@@ -30,15 +30,15 @@ Hệ thống hoạt động dựa trên kiến trúc Master-Slave sử dụng Ra
     *   *Cảnh báo:* **Còi chip (Buzzer)** sẽ phát ra âm thanh báo động nếu có hành vi cố tình xâm nhập không hợp lệ.
 
 ## 🛠️ Linh Kiện Phần Cứng
-*   **Vi điều khiển:** Arduino (Xử lý việc thu thập dữ liệu thô từ cảm biến)
-*   **Máy tính nhúng:** Raspberry Pi (Xử lý logic phức tạp, hình ảnh từ camera và giao tiếp đám mây)
-*   **Camera:** Module Camera Raspberry Pi 5 Megapixel (Chụp ảnh/quay video)
-*   **Cơ cấu chấp hành:** Động cơ Servo (Điều khiển cơ chế khóa cửa chính xác)
+*   **Vi điều khiển:** Arduino
+*   **Máy tính nhúng:** Raspberry Pi
+*   **Camera:** Module Camera Raspberry Pi 5 Megapixel
+*   **Cơ cấu chấp hành:** Động cơ Servo
 *   **Cảm biến:**
-    *   Cảm biến rung (Nhận diện nhịp điệu gõ cửa cụ thể)
-    *   Cảm biến chuyển động (Phát hiện chuyển động gần để kích hoạt hệ thống)
-    *   Cảm biến chạm (Phát hiện tương tác vật lý ban đầu)
-*   **Đầu ra âm thanh:** Còi chip Buzzer (Tạo âm thanh báo động)
+    *   Cảm biến rung
+    *   Cảm biến chuyển động
+    *   Cảm biến chạm
+*   **Đầu ra âm thanh:** Còi chip Buzzer
 
 ## 💻 Nhiệm Vụ Kỹ Thuật & Luồng Dữ Liệu
 *   **Arduino:** Được lập trình bằng C++ để liên tục đọc và lọc tín hiệu từ các cảm biến chuyển động, chạm và rung.
