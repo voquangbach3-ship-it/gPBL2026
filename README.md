@@ -44,7 +44,4 @@ Hệ thống hoạt động dựa trên kiến trúc Master-Slave sử dụng Ra
 *   **Arduino:** Được lập trình bằng C++ để liên tục đọc và lọc tín hiệu từ các cảm biến chuyển động, chạm và rung.
 *   **Giao tiếp Serial:** Arduino truyền luồng dữ liệu cảm biến đã được cấu trúc tới Raspberry Pi thông qua cáp USB.
 *   **Raspberry Pi:** Đóng vai trò là trung tâm điều khiển. Nó phân tích dữ liệu từ Arduino, kích hoạt Camera Pi và giao tiếp với API của Telegram.
-*   **Tích hợp Telegram:** Giao tiếp hai chiều. Gửi cảnh báo theo thời gian thực (hình ảnh/văn bản) tới người dùng, đồng thời liên tục nhận các lệnh webhook (ví dụ: `/open`) từ người dùng để điều khiển khóa cửa vật lý.
-
----
-*Kho lưu trữ này chứa mã nguồn cho cả phần logic cảm biến của Arduino và các kịch bản Python/Telegram Bot của Raspberry Pi được phát triển trong khuôn khổ gPBL2026-NetSoft.*
+*   **Tích hợp Telegram:** Giao tiếp hai chiều. Gửi cảnh báo theo thời gian thực (hình ảnh/văn bản) tới người dùng, đồng thời liên tục nhận các lệnh webhook từ người dùng để điều khiển khóa cửa vật lý.
