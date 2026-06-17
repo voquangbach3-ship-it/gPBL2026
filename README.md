@@ -1,10 +1,6 @@
 # gPBL2026
 # 🚪 Hệ Thống Cửa Bảo Mật Thông Minh với Xác Thực Nhịp Gõ Cửa
 
-![Project Status](https://img.shields.io/badge/Status-Completed-success)
-![Program](https://img.shields.io/badge/Program-gPBL_2026_NetSoft-blue)
-![Platform](https://img.shields.io/badge/Platform-Arduino_%7C_Raspberry_Pi-red)
-
 ## 💡 Tổng Quan Dự Án
 Dự án này giới thiệu hệ thống bảo mật IoT đa lớp. Hệ thống thay thế chìa khóa truyền thống bằng ổ khóa xác thực dựa trên nhịp gõ cửa (Rhythm lock), kết hợp với khả năng giám sát và điều khiển từ xa thông qua Telegram.
 
