@@ -23,7 +23,7 @@ Hệ thống hoạt động dựa trên kiến trúc Master-Slave sử dụng Ra
 5.  **Kiểm soát truy cập:** 
     *   *Tại chỗ:* Nếu nhịp gõ khớp với nhịp điệu đã được lập trình sẵn, **Động cơ Servo (Servo Motor)** sẽ mở cửa.
     *   *Từ xa:* Chủ nhà có thể bỏ qua bước gõ cửa và gửi lệnh "open" (mở) trực tiếp thông qua Telegram Bot để cho khách vào.
-    *   *Cảnh báo:* **Còi chip (Buzzer)** sẽ phát ra âm thanh báo động nếu có hành vi cố tình xâm nhập không hợp lệ.
+    *   *Cảnh báo:* **Buzzer** sẽ phát ra âm thanh báo động nếu có hành vi cố tình xâm nhập không hợp lệ.
 
 ## 🛠️ Linh Kiện Phần Cứng
 *   **Vi điều khiển:** Arduino
