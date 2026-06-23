@@ -4,7 +4,7 @@
 ## 💡 Tổng Quan Dự Án
 Dự án này giới thiệu hệ thống bảo mật IoT đa lớp. Hệ thống thay thế chìa khóa truyền thống bằng ổ khóa xác thực dựa trên nhịp gõ cửa (Rhythm lock), kết hợp với khả năng giám sát và điều khiển từ xa thông qua Telegram.
 
-**Nhóm 10:** **Võ Quang Bách** (lắp mạch hệ thống, code arduino), Ema Nakagawa, Shingo Hirachi, Châu Quốc Tuấn, Nguyễn Lê Anh Tài.
+**Nhóm 10:** **Võ Quang Bách (lắp mạch hệ thống, code arduino)**, Ema Nakagawa, Shingo Hirachi, Châu Quốc Tuấn, Nguyễn Lê Anh Tài.
 
 ## 🎯 Mục Tiêu
 *   Phát triển các kỹ năng thực tế về tích hợp hệ thống IoT.
